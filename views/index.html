@@ -1,18 +1,54 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Exercise Tracker | freeCodeCamp</title>
-    <link rel="shortcut icon" href="https://cdn.freecodecamp.org/universal/favicons/favicon-32x32.png" type="image/x-icon"/>
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
-    <link href="style.css" rel="stylesheet" type="text/css">
-  </head>
 
-  <body>
-    <div class="container">
-      <h1>Exercise tracker</h1>
-      <form action="/api/users" method="post">
-        <h3>Create a New User</h3>
-        <p><code>POST /api/users</code></p>
+<head>
+	<title>Exercise Tracker | freeCodeCamp</title>
+	<link rel="shortcut icon" href="https://cdn.freecodecamp.org/universal/favicons/favicon-32x32.png" type="image/x-icon" />
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+	<link href="style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+	<h1>Exercise tracker freeCodeCamp project</h1>
+	<div>
+		<div class='row'>
+			<div class='notes col-sm-8'>
+				<p>
+					<b>Notes:</b>
+				<ul  class="list-group list-group-flush">
+					<li class="list-group-item">You can POST to <mark>/api/users</mark> with form data username to create a new user. The returned response will be an object
+						with username and _id properties.</li>
+					<li class="list-group-item">You can make a GET request to <mark>/api/users</mark> to get an array of all users. Each element in the array is an object containing
+						a user's username and _id.</li>
+
+					<li class="list-group-item">You can POST to <mark>/api/users/:_id/exercises</mark> with form data description, duration, and optionally date. If no date
+						is supplied, the current date will be used. The response returned will be the user object with the exercise fields
+						added.</li>
+
+					<li class="list-group-item">You can make a GET request to <mark/api/users/:_id/logs</mark> to retrieve a full exercise log of any user. The returned response
+						will be the user object with a log array of all the exercises added. Each log item has the description, duration, and
+						date properties.</li>
+
+					<li class="list-group-item">A request to a user's log <mark>(/api/users/:_id/logs) </mark> an object with a count property representing the number
+						of exercises returned.</li>
+
+					<li class="list-group-item">You can add from, to and limit parameters to a <mark>/api/users/:_id/logs</mark> request to retrieve part of the log of any user.
+						from and to are dates in <mark>yyyy-mm-dd format</mark>. limit is an integer of how many logs to send back.</li>
+				</ul>
+        </p>
+           <p class="get">
+        <strong>GET user's exercise log: </strong>
+        <code>GET /api/users/:_id/logs?[&amp;from][&amp;to][&amp;limit]</code>
+      </p>
+      <p><strong>[ ]</strong> = optional</p>
+      <p><strong>from, to</strong> = dates (yyyy-mm-dd); <strong>limit</strong> = number</p>
+			</div>
+			<div class='col-sm-4'>
+				<form action="/api/users" method="post">
+					<h3>Create a New User</h3>
+					<p><code>POST /api/users</code></p>
         <input id="uname" type="text" name="username" placeholder="username">
         <input type="submit" value="Submit">
       </form>
@@ -25,12 +61,7 @@
         <input id="dat" type="text" name="date" placeholder="date (yyyy-mm-dd)">
         <input type="submit" value="Submit">
       </form>
-      <p>
-        <strong>GET user's exercise log: </strong>
-        <code>GET /api/users/:_id/logs?[&amp;from][&amp;to][&amp;limit]</code>
-      </p>
-      <p><strong>[ ]</strong> = optional</p>
-      <p><strong>from, to</strong> = dates (yyyy-mm-dd); <strong>limit</strong> = number</p>
+     
     </div>
     <script>
       const exerciseForm = document.getElementById("exercise-form");
@@ -42,5 +73,10 @@
         exerciseForm.submit();
       });
     </script>
+    </div>
+    </div>
+    <footer>
+    <p>By <a href="https://github.com/Sabri0o">Sabri Trabelsi</a></p>
+  </footer>
   </body>
 </html>
