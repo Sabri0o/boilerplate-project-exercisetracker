@@ -84,6 +84,58 @@ app.get("/api/users", function (req, res) {
     .catch((err) => res.send(err.message));
 });
 
+// ************* add exercise to an existed user **********
+// importing UserTracker modal
+const ExerciseTracker = require("./dbSchema.js").ExerciseTrackerModel;
+
+app.post("/api/users/:_id/exercises", function (req, res) {
+  // console.log(req.body)
+  let userId = req.params._id;
+  let description = req.body.description;
+  let duration = req.body.duration;
+  let date =
+    new Date(req.body.date).toDateString() === "Invalid Date"
+      ? new Date().toDateString()
+      : new Date(req.body.date).toDateString();
+  let userExercise = {
+    description: description,
+    duration: duration,
+    date: date,
+  };
+
+  UserTracker.findOne({ _id: userId })
+    .then((user) => {
+      var addExercise = ExerciseTracker.create(userExercise)
+        .then((exercise) => {
+          // console.log('exercise:',exercise)
+          // console.log('user:',user)
+          user.count += 1;
+          user.log.push(userExercise);
+          user.save(function (err, data) {
+            if (err) {
+              console.log(err.message);
+            }
+            console.log("exercise added successfully");
+            res.json({
+              _id: user._id,
+              username: user.username,
+              description: description,
+              duration: Number(duration),
+              date: date,
+            });
+          });
+        })
+        .catch((err) => {
+          console.log(err.message);
+          res.send(err.message);
+        });
+    })
+    .catch((err) => {
+      console.log(err.message);
+      res.send(err.message);
+    });
+});
+
 const listener = app.listen(process.env.PORT || 3000, () => {
   console.log("Your app is listening on port " + listener.address().port);
 });
